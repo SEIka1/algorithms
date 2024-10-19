@@ -54,3 +54,23 @@ char* getUniqueString(char* unqieString, const char* nonUniqueString)
     }
     return 0;
 }
+
+
+// more optimized function:
+
+// char* getUniqueString(char* unqieString, const char* nonUniqueString)
+// {   
+//     int k = 0;
+//     for (int i = 0; i < strlen(nonUniqueString); i++) 
+//     {
+//         int errcounter = 0;
+//         for (int j = i + 1; j < strlen(nonUniqueString); j++)
+//             if (nonUniqueString[i] == nonUniqueString[j])
+//                 errcounter++;
+//         if (errcounter == 0) {
+//             uniqueString[k] = nonUniqueString[i];
+//             k++;
+//         }
+//     }
+//     return uniqueString;
+// }

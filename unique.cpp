@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////////////////////////////////
+// This script reads the original string and outputs a new unique string       //
+// consisting only of the unique characters of the original string,            //
+// and duplicate characters are cut off.                                       //
+//                                                                             //
+// The script uses C-style strings                                             //
+/////////////////////////////////////////////////////////////////////////////////
+
+
 #include <iostream>
 #include <cstring>
 

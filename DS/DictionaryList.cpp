@@ -296,7 +296,7 @@ public:
         insert(it, value); 
     }
 
-    const_iterator find(const_reference item) const noexcept
+    const_iterator find_first(const_reference item) const noexcept
     {
         for (auto it = begin(); it != end(); ++it) {
             if (*it == item) {
@@ -306,12 +306,30 @@ public:
         return const_iterator{ nullptr };
     }
 
-    iterator find(const_reference item) noexcept
+    iterator find_first(const_reference item) noexcept
     {
         auto it = static_cast<const DictionaryList&>(*this)
-            .find(item);
+            .find_first(item);
 
         return iterator{ const_cast<Node*>(it.current) };
+    }
+
+    iterator find(const_reference item) noexcept {
+        for (auto it = begin(); it != end(); ++it) {
+            if (**it == *item) {
+                return it;
+            }
+        }
+        return end();
+    }
+
+    const_iterator find(const_reference item) const noexcept {
+        for (auto it = begin(); it != end(); ++it) {
+            if (**it == *item) {
+                return it;
+            }
+        }
+        return end();
     }
 
     void deleteItem(const_iterator place) noexcept {
@@ -386,25 +404,31 @@ public:
         std::cout << "{ ";
         while (current) {
             if (i == 0) {
-                std::cout << "" << i << " : " << current->data;
+                std::cout << "" << i << " : ";
             }
             else {
-                std::cout << "  " << i << " : " << current->data;
+                std::cout << "  " << i << " : ";
             }
-                if (current->next == nullptr) {
-                    std::cout << " }\n";
-                }
-                else {
-                    std::cout << "\n";
-                }
-            
+
+            if constexpr (std::is_pointer_v<_Ty>) {
+                std::cout << *current->data;
+            }
+            else {
+                std::cout << current->data;
+            }
+
+            if (current->next == nullptr) {
+                std::cout << " }\n";
+            }
+            else {
+                std::cout << "\n";
+            }
+
             current = current->next;
             ++i;
         }
         std::cout << std::endl;
     }
-
-    
 
 };
 
@@ -433,14 +457,30 @@ int main() {
     std::cout << "Merged Dict1:\n";
     dict1.print();
 
-    std::cout << "Dict1 after removing 5th element:\n";
+    std::cout << "Dict1 after removing first occurence of 10:\n";
 
-    dict1.deleteItem(dict1.find(10));
+    dict1.deleteItem(dict1.find_first(10));
     dict1.print();
 
     std::cout << "Dict1 after inserting 1st element (5):\n";
     dict1.insert(1, 5);
     dict1.print();
 
+    std::cout << "Dict3 after pushback (int 5):\n";
+    DictionaryList<int*, CustomAllocator> dict3(customAlloc);
+    int a = 5;
+    dict3.push_back(&a);
+    dict3.print();
+
+    std::cout << "Trying to find (int a = 5):\n";
+    auto A = dict3.find(&a);
+    
+    if(A != dict3.end())
+        std::cout << "element found:\n{ " << **A << " : " << *A << " }\n";
+
     return 0;
 }
+
+
+#pragma warning(pop)
+#pragma pack(pop)

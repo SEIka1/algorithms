@@ -9,9 +9,6 @@
 
 #pragma pack(push, _CRT_PACKING)
 #pragma warning(push, 3)
-#pragma warning(disable : 4180 4324 4412 4455 4494 4514 4574 \
-4582 4583 4587 4588 4619 4623 4625 4626 4643 4648 4702 4793 \
-4820 4868 4988 5026 5027 5045 5220 5246 6294  4984 5053)
 
 template <typename _Ty, typename Allocator = std::allocator<_Ty>>
 class DictionaryList {
@@ -41,9 +38,6 @@ private:
     }
 
 public:
-
-    
-
     using      value_type = _Ty;
     using       size_type = size_t;
     using difference_type = ptrdiff_t;
@@ -91,7 +85,6 @@ public:
 
         friend class DictionaryList;
     public:
-
         using   difference_type = DictionaryList::difference_type;
         using        value_type = DictionaryList::value_type;
         using           pointer = DictionaryList::const_pointer;
@@ -155,7 +148,6 @@ public:
             : Unchecked_const_iterator{ ptr } {}
 
     public:
-
         using   difference_type = DictionaryList::difference_type;
         using        value_type = DictionaryList::value_type;
         using           pointer = DictionaryList::pointer;
@@ -431,8 +423,8 @@ public:
     }
 
 };
-
-int main() {
+//example of using this ds:
+/*int main() {
 
     using CustomAllocator = std::allocator<int>;
     CustomAllocator customAlloc;
@@ -480,7 +472,7 @@ int main() {
 
     return 0;
 }
-
+*/
 
 #pragma warning(pop)
 #pragma pack(pop)

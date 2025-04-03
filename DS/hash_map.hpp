@@ -198,32 +198,32 @@ public:
         swap(element_count, other.element_count);
     }
 
-    iterator begin() noexcept {
+    [[nodiscard]] iterator begin() noexcept {
         return iterator(buckets.begin(), buckets.end());
     }
 
-    const_iterator begin() const noexcept {
+    [[nodiscard]] const_iterator begin() const noexcept {
         return const_iterator(buckets.begin(), buckets.end());
     }
 
-    const_iterator cbegin() const noexcept {
+    [[nodiscard]] const_iterator cbegin() const noexcept {
         return const_iterator(buckets.begin(), buckets.end());
     }
 
-    iterator end() noexcept {
+    [[nodiscard]] iterator end() noexcept {
         return iterator(buckets.end(), buckets.end());
     }
 
-    const_iterator end() const noexcept {
+    [[nodiscard]] const_iterator end() const noexcept {
         return const_iterator(buckets.end(), buckets.end());
     }
 
-    const_iterator cend() const noexcept {
+    [[nodiscard]] const_iterator cend() const noexcept {
         return const_iterator(buckets.end(), buckets.end());
     }
 
     template <typename K>
-    Value* find(const K& key) noexcept {
+    [[nodiscard]] Value* find(const K& key) noexcept {
         auto bucket_idx = get_bucket(key);
         auto& bucket = buckets[bucket_idx];
 
@@ -236,7 +236,7 @@ public:
     }
 
     template <typename K>
-    const Value* find(const K& key) const noexcept {
+    [[nodiscard]] const Value* find(const K& key) const noexcept {
         return const_cast<hash_map*>(this)->find(key);
     }
 
@@ -293,16 +293,16 @@ public:
         element_count = 0;
     }
 
-    size_type size() const noexcept { return element_count; }
-    bool empty() const noexcept { return element_count == 0; }
-    size_type bucket_count() const noexcept { return buckets.size(); }
-    size_type bucket_size(size_type n) const { return buckets[n].size(); }
+    [[nodiscard]] size_type size() const noexcept { return element_count; }
+    [[nodiscard]] bool empty() const noexcept { return element_count == 0; }
+    [[nodiscard]] size_type bucket_count() const noexcept { return buckets.size(); }
+    [[nodiscard]] size_type bucket_size(size_type n) const { return buckets[n].size(); }
 
-    float load_factor() const noexcept {
+    [[nodiscard]] float load_factor() const noexcept {
         return static_cast<float>(element_count) / buckets.size();
     }
 
-    float max_load_factor() const noexcept {
+    [[nodiscard]] float max_load_factor() const noexcept {
         return max_load_factor_;
     }
 
